@@ -1,0 +1,80 @@
+<Locations>
+    <Location id = "0">
+        <Name>Celler</Name>
+        <Description>You can barely see anything. It's cold and damp</Description>
+        <Reaction>The once pitch black room becomes slightly illuminated and you find yourself in what appears to be a small celler</Reaction>
+        <PostDescription>You can make out a door with an old rusty lock, a chest in the corner, and a crumbling wall</PostDescription>
+        <CanBurn>false</CanBurn>
+        <CanCut>false</CanCut>
+        <CanLightUp>true</CanLightUp>
+        <CanSmash>false</CanSmash>
+        <CanShoot>false</CanShoot>
+        <CanUnlock>false</CanUnlock>
+        <Items>
+            <Item>
+                <Name id="0">matchbook</Name>
+                <Description>a book of matches</Description>
+                <ConsumeMessage>You've used the last match, the book is now empty</ConsumeMessage>
+                <Consumable>true</Consumable>
+                <RemainingUses>5</RemainingUses>
+                <CanBurn>true</CanBurn>
+                <CanCut>false</CanCut>
+                <CanLightUp>true</CanLightUp>
+                <CanSmash>false</CanSmash>
+                <CanShoot>false</CanShoot>
+                <CanUnlock>false</CanUnlock>
+            </Item>
+        </Items>
+        <Containers>
+            <Container>
+                <Name>chest</Name>
+                <Description>an old chest</Description>
+                <Items>
+                    <Item>
+                        <Name id="5">hammer</Name>
+                        <Description>a sturdy hammer</Description>
+                        <ConsumeMessage></ConsumeMessage>
+                        <Consumable>false</Consumable>
+                        <RemainingUses>-1</RemainingUses>
+                        <CanBurn>false</CanBurn>
+                        <CanCut>false</CanCut>
+                        <CanLightUp>false</CanLightUp>
+                        <CanSmash>true</CanSmash>
+                        <CanShoot>false</CanShoot>
+                        <CanUnlock>false</CanUnlock>
+                    </Item>
+                </Items>
+            </Container>
+        </Containers>
+        <Obstacles>
+            <Obstacle>
+                <Name>wall</Name>
+                <Description>You see an old dilapidated wall. Peeled wallpaper and broken plaster expose the skeletal frame beneath. Behind the wooden frame you see the shimmer of something just out of reach</Description>
+                <Reaction>The boards give way and you are able squeeze through just enough to grab what you saw. You pull back a small key</Reaction>
+                <PostDescription>There is now a large hole in the wall filled with solid darkness</PostDescription>
+                <CanBurn>false</CanBurn>
+                <CanCut>false</CanCut>
+                <CanLightUp>false</CanLightUp>
+                <CanSmash>true</CanSmash>
+                <CanShoot>false</CanShoot>
+                <CanUnlock>false</CanUnlock>
+            </Obstacle>
+        </Obstacles>
+        <Walls>
+            <Wall>
+                <Door>
+                    <PreviousID>0</PreviousID>
+                    <NextID>-1</NextID>
+                    <Name>door 1</Name>
+                    <Description>A door with a old rusty lock keeps you trapped</Description>
+                    <Reaction>You hear the click of the lock</Reaction>
+                    <PostDescription>The door is now opened along with your path to freedom</PostDescription>
+                    <CanUnlock>true</CanUnlock>
+                </Door>
+            </Wall>
+            <Wall></Wall>
+            <Wall></Wall>
+            <Wall></Wall>
+        </Walls>
+    </Location>
+</Locations>

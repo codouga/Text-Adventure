@@ -1,0 +1,19 @@
+<Containers>
+    <Container>
+        <Items>
+            <Item>
+                <Name id="5">hammer</Name>
+                <Description>a sturdy hammer</Description>
+                <ConsumeMessage></ConsumeMessage>
+                <Consumable>false</Consumable>
+                <RemainingUses>-1</RemainingUses>
+                <CanBurn>false</CanBurn>
+                <CanCut>false</CanCut>
+                <CanLightUp>false</CanLightUp>
+                <CanSmash>true</CanSmash>
+                <CanShoot>false</CanShoot>
+                <CanUnlock>false</CanUnlock>
+            </Item>
+        </Items>
+    </Container>
+</Containers>

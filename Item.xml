@@ -1,0 +1,41 @@
+<Items>
+    <Item>
+        <Name id = "0">rock</Name>
+        <Description>a sturdy, palm sized rock capable of smashing</Description>
+        <ConsumeMessage>The rock crumbles after repeated use</ConsumeMessage>
+        <Consumable>true</Consumable>
+        <RemainingUses>3</RemainingUses>
+        <CanBurn>false</CanBurn>
+        <CanCut>false</CanCut>
+        <CanLightUp>false</CanLightUp>
+        <CanSmash>true</CanSmash>
+        <CanShoot>false</CanShoot>
+        <CanUnlock>false</CanUnlock>
+    </Item>
+    <Item>
+        <Name id="1">glass</Name>
+        <Description>a sharp glass shard</Description>
+        <ConsumeMessage>The glass chips into unusable pieces</ConsumeMessage>
+        <Consumable>true</Consumable>
+        <RemainingUses>3</RemainingUses>
+        <CanBurn>false</CanBurn>
+        <CanCut>true</CanCut>
+        <CanLightUp>false</CanLightUp>
+        <CanSmash>false</CanSmash>
+        <CanShoot>false</CanShoot>
+        <CanUnlock>false</CanUnlock>
+    </Item>
+    <Item>
+        <Name id = "2">matchbook</Name>
+        <Description>a book of matches</Description>
+        <ConsumeMessage>You've used the last match, the book is now empty</ConsumeMessage>
+        <Consumable>true</Consumable>
+        <RemainingUses>5</RemainingUses>
+        <CanBurn>true</CanBurn>
+        <CanCut>false</CanCut>
+        <CanLightUp>true</CanLightUp>
+        <CanSmash>false</CanSmash>
+        <CanShoot>false</CanShoot>
+        <CanUnlock>false</CanUnlock>
+    </Item>
+</Items>

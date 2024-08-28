@@ -1,0 +1,15 @@
+<Keys>
+    <Key>
+        <Name id = "3">old key</Name>
+        <Description>a small rusty key</Description>
+        <ConsumeMessage>The key snaps in your hand you hear the lock click</ConsumeMessage>
+        <Consumable>true</Consumable>
+        <RemainingUses>1</RemainingUses>
+        <CanBurn>false</CanBurn>
+        <CanCut>false</CanCut>
+        <CanLightUp>false</CanLightUp>
+        <CanSmash>false</CanSmash>
+        <CanShoot>false</CanShoot>
+        <CanUnlock>true</CanUnlock>
+    </Key>
+</Keys>

@@ -1,0 +1,14 @@
+<Obstacles>
+    <Obstacle>
+        <Name>wall</Name>
+        <Description>You see an old dilapidated wall. Peeled wallpaper and broken plaster expose the skeletal frame beneath. Behind the wooden frame you see the shimmer of something just out of reach</Description>
+        <Reaction>The boards give way and you are able squeeze through just enough to grab what you saw. You pull back a small key</Reaction>
+        <PostDescription>There is now a large hole in the wall filled with solid darkness</PostDescription>
+        <CanBurn>false</CanBurn>
+        <CanCut>false</CanCut>
+        <CanLightUp>false</CanLightUp>
+        <CanSmash>true</CanSmash>
+        <CanShoot>false</CanShoot>
+        <CanUnlock>false</CanUnlock>
+    </Obstacle>
+</Obstacles>
