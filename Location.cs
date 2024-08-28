@@ -5,7 +5,7 @@ public class Location : Obstacle
 {
     private static int _currentID = 0;
     public int LocationID { get; set; } = _currentID++;
-    public bool DisplayAlt { get; set; } = false;
+    //public bool DisplayAlt { get; set; } = false;
 
     [XmlArray("Obstacles")]
     [XmlArrayItem("Obstacle")]

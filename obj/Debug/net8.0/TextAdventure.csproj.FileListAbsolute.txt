@@ -12,3 +12,4 @@ C:\Users\mcdou\Desktop\Code\VS Code\Game Logic\TextAdventure\obj\Debug\net8.0\re
 C:\Users\mcdou\Desktop\Code\VS Code\Game Logic\TextAdventure\obj\Debug\net8.0\TextAdventure.pdb
 C:\Users\mcdou\Desktop\Code\VS Code\Game Logic\TextAdventure\obj\Debug\net8.0\TextAdventure.genruntimeconfig.cache
 C:\Users\mcdou\Desktop\Code\VS Code\Game Logic\TextAdventure\obj\Debug\net8.0\ref\TextAdventure.dll
+C:\Users\mcdou\Desktop\Code\VS Code\Game Logic\TextAdventure\obj\Debug\net8.0\TextAdventure.sourcelink.json

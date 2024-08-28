@@ -136,10 +136,35 @@ class Parser
         //Player.Instance.AddItem(new Item("", false));
         try
         {
-            Item? temp = Player.Current.Contents.Where(item => item.Name == message[message.Length - 1]).FirstOrDefault();
-            Player.Current.Contents.Remove(temp);
-            Player.AddItem(temp);
-            Console.WriteLine($"You've obtained {temp.Name}\n");
+            if (Player.Focus.GetType() == typeof(Location))
+            {
+                Item? temp = Player.Current.Contents.Where(item => item.Name == message[message.Length - 1]).FirstOrDefault();
+                Player.Current.Contents.Remove(temp);
+                Player.AddItem(temp);
+                Console.WriteLine($"You've obtained {temp.Name}\n");
+            }
+
+            else if (Player.Focus.GetType() == typeof(Container))
+            {
+                Container? current = Player.Current.RoomContainers.Where(current => current == Player.Focus).FirstOrDefault();
+                Item? temp = current.Contents.Where(temp => temp.Name == message[message.Length - 1]).FirstOrDefault();
+                current.Contents.Remove(temp);
+                Player.AddItem(temp);
+                Console.WriteLine($"You've obtained {temp.Name}\n");
+            }
+
+            else if (Player.Focus.GetType() == typeof(Obstacle))
+            {
+                Obstacle tempObstacle = (Obstacle)Player.Focus;
+                
+                if (tempObstacle.IsCleared)
+                {
+                    Item? temp = tempObstacle.Contents.Where(temp => temp.Name == message[message.Length - 1]).FirstOrDefault();
+                    tempObstacle.Contents.Remove(temp);
+                    Player.AddItem(temp);
+                    Console.WriteLine($"You've obtained {temp.Name}\n");
+                }
+            }
         }
 
         catch (NullReferenceException)
@@ -203,7 +228,7 @@ class Parser
                     Player.Current.CanBurn = false;
 
 
-                    Player.Current.DisplayAlt = true;
+                    Player.Current.IsCleared = true;
                     Console.WriteLine(Player.Current.Reaction + "\n"
                         + Player.Current.PostDescription + "\n");
                 }
@@ -212,7 +237,7 @@ class Parser
                 {
                     Player.Current.CanCut = false;
 
-                    Player.Current.DisplayAlt = true;
+                    Player.Current.IsCleared = true;
                     Console.WriteLine(Player.Current.Reaction + "\n"
                         + Player.Current.PostDescription + "\n");
                 }
@@ -221,7 +246,7 @@ class Parser
                 {
                     Player.Current.CanLightUp = false;
 
-                    Player.Current.DisplayAlt = true;
+                    Player.Current.IsCleared = true;
                     Console.WriteLine(Player.Current.Reaction + "\n"
                         + Player.Current.PostDescription + "\n");
                 }
@@ -230,7 +255,7 @@ class Parser
                 {
                     Player.Current.CanSmash = false;
 
-                    Player.Current.DisplayAlt = true;
+                    Player.Current.IsCleared = true;
                     Console.WriteLine(Player.Current.Reaction + "\n"
                         + Player.Current.PostDescription + "\n");
                 }
@@ -239,7 +264,7 @@ class Parser
                 {
                     Player.Current.CanShoot = false;
 
-                    Player.Current.DisplayAlt = true;
+                    Player.Current.IsCleared = true;
                     Console.WriteLine(Player.Current.Reaction + "\n"
                         + Player.Current.PostDescription + "\n");
                 }
@@ -248,7 +273,7 @@ class Parser
                 {
                     Player.Current.CanUnlock = false;
 
-                    Player.Current.DisplayAlt = true;
+                    Player.Current.IsCleared = true;
                     Console.WriteLine(Player.Current.Reaction + "\n"
                         + Player.Current.PostDescription + "\n");
                 }
@@ -260,116 +285,124 @@ class Parser
             }
         }
 
-        catch (Exception e) when  (e is NullReferenceException || e is IndexOutOfRangeException)
+        catch (Exception e) when (e is NullReferenceException || e is IndexOutOfRangeException)
         {
             DisplayError();
         }
-    
 
-}
 
-// keywords: push, press, shove; target/button
-private static void Push(string[] message)
-{
-    Console.WriteLine("In push");
-}
-
-// keywords: pull; target
-private static void Pull(string[] message)
-{
-    Console.WriteLine("In pull");
-}
-
-// keywords: inventory
-private static void Inventory()
-{
-    //Console.WriteLine("In inventory");
-    Player.DisplayInventory();
-}
-
-// keywords: put, place; auxiliary: on, in; item; target
-private static void Put(string[] message)
-{
-    Console.WriteLine("In put");
-}
-
-// keywords: look; auxiliary: at, around; direction
-private static void Look(string[] message)
-{
-    if (Player.Current.DisplayAlt)
-    {
-        Console.WriteLine(Player.Current.PostDescription + "\n");
-        Player.Current.DisplayItems();
     }
 
-    else
+    // keywords: push, press, shove; target/button
+    private static void Push(string[] message)
     {
-        Console.WriteLine(Player.Current.Description + "\n");
-        Player.Current.DisplayItems();
+        Console.WriteLine("In push");
     }
-}
 
-// keywords: hide; auxiliary: in, under, behind; objlect
-private static void Hide(string[] message)
-{
-    Console.WriteLine("In hide");
-}
-
-// keywords: touch, feel; auxiliary: in, under, behind; object
-private static void Touch(string[] message)
-{
-    Console.WriteLine("In touch");
-}
-
-private static bool Quit()
-{
-    string? input;
-    char[] separators = new char[] { ' ', '.' };
-    Console.Write("Are you sure you want to quit (Y/N)? ");
-    input = Console.ReadLine();
-
-    if (input != "" && input is not null)
+    // keywords: pull; target
+    private static void Pull(string[] message)
     {
-        string[] message = input.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        Console.WriteLine("In pull");
+    }
 
-        if (YES.Contains(message[0].ToLower()))
-        {
-            return true;
-        }
+    // keywords: inventory
+    private static void Inventory()
+    {
+        //Console.WriteLine("In inventory");
+        Player.DisplayInventory();
+    }
 
-        else if (NO.Contains(message[0].ToLower()))
+    // keywords: put, place; auxiliary: on, in; item; target
+    private static void Put(string[] message)
+    {
+        Console.WriteLine("In put");
+    }
+
+    // keywords: look; auxiliary: at, around; direction
+    private static void Look(string[] message)
+    {
+        if (Player.Current != null)
         {
-            return false;
+            if (Player.Current.IsCleared)
+            {
+                Console.WriteLine(Player.Current.PostDescription + "\n");
+                Player.Current.DisplayItems();
+            }
+
+            else
+            {
+                Console.WriteLine(Player.Current.Description + "\n");
+                Player.Current.DisplayItems();
+            }
         }
 
         else
         {
-            return false;
+            DisplayError();
         }
     }
-    return false;
-}
 
-private static void DisplayHelp()
-{
-    Console.WriteLine("keyword: \"go\"\t\t -- syntax: go + {direction}\t\t\t -- moves player that direction\n"
-        + "keyword: \"use\"\t\t -- syntax: use + {item}\t\t\t -- uses designated item\n"
-        + "\t\t\t -- syntax: use + {item} + on + {target}\t -- uses designated item on specified target in current area\n"
-        + "keyword: \"push\"\t\t -- syntax: push + {obstacle}\t\t\t -- moves objects or pushes buttons\n"
-        + "keyword: \"press\"\t -- syntax: press + {button}\t\t\t -- presses buttons or switches\n"
-        + "keyword: \"take\"\t\t -- syntax: take + {item}\t\t\t -- takes designated item from room and places it into your inventory\n"
-        + "keyword: \"throw\"\t -- syntax: throw + {item}\t\t\t -- throws designated item, dropping it in the process\n"
-        + "\t\t\t -- syntax: throw + {item} + at + {target}\t -- throws designated item at a specified target, dropping it or potentially breaking it in the process\n"
-        + "keyword: \"open\"\t\t -- syntax: open + {door/container}\t\t -- opens a closed door/container\n"
-        + "keyword: \"close\"\t -- syntax: close + {door/container}\t\t -- closes an opened door/container\n"
-        + "keyword: \"look\"\t\t -- syntax: look\t\t\t\t -- looks around the general area\n"
-        + "\t\t\t -- syntax: look +  at + {target}\t\t -- looks at a specific target\n"
-        + "\t\t\t -- syntax: throw + {direction}\t\t\t -- looks in a specified direction and reports what is seen\n");
-    // continue adding rest of the keywords and functions
-}
+    // keywords: hide; auxiliary: in, under, behind; objlect
+    private static void Hide(string[] message)
+    {
+        Console.WriteLine("In hide");
+    }
 
-private static void DisplayError()
-{
-    Console.WriteLine("-- You can't do that --");
-}
+    // keywords: touch, feel; auxiliary: in, under, behind; object
+    private static void Touch(string[] message)
+    {
+        Console.WriteLine("In touch");
+    }
+
+    private static bool Quit()
+    {
+        string? input;
+        char[] separators = new char[] { ' ', '.' };
+        Console.Write("Are you sure you want to quit (Y/N)? ");
+        input = Console.ReadLine();
+
+        if (input != "" && input is not null)
+        {
+            string[] message = input.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+            if (YES.Contains(message[0].ToLower()))
+            {
+                return true;
+            }
+
+            else if (NO.Contains(message[0].ToLower()))
+            {
+                return false;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private static void DisplayHelp()
+    {
+        Console.WriteLine("keyword: \"go\"\t\t -- syntax: go + {direction}\t\t\t -- moves player that direction\n"
+            + "keyword: \"use\"\t\t -- syntax: use + {item}\t\t\t -- uses designated item\n"
+            + "\t\t\t -- syntax: use + {item} + on + {target}\t -- uses designated item on specified target in current area\n"
+            + "keyword: \"push\"\t\t -- syntax: push + {obstacle}\t\t\t -- moves objects or pushes buttons\n"
+            + "keyword: \"press\"\t -- syntax: press + {button}\t\t\t -- presses buttons or switches\n"
+            + "keyword: \"take\"\t\t -- syntax: take + {item}\t\t\t -- takes designated item from room and places it into your inventory\n"
+            + "keyword: \"throw\"\t -- syntax: throw + {item}\t\t\t -- throws designated item, dropping it in the process\n"
+            + "\t\t\t -- syntax: throw + {item} + at + {target}\t -- throws designated item at a specified target, dropping it or potentially breaking it in the process\n"
+            + "keyword: \"open\"\t\t -- syntax: open + {door/container}\t\t -- opens a closed door/container\n"
+            + "keyword: \"close\"\t -- syntax: close + {door/container}\t\t -- closes an opened door/container\n"
+            + "keyword: \"look\"\t\t -- syntax: look\t\t\t\t -- looks around the general area\n"
+            + "\t\t\t -- syntax: look +  at + {target}\t\t -- looks at a specific target\n"
+            + "\t\t\t -- syntax: throw + {direction}\t\t\t -- looks in a specified direction and reports what is seen\n");
+        // continue adding rest of the keywords and functions
+    }
+
+    private static void DisplayError()
+    {
+        Console.WriteLine("-- You can't do that --");
+    }
 }

@@ -11,4 +11,5 @@ public class Obstacle : PlayerInteraction
     public string? Description { get; set; }
     public string? Reaction { get; set; }
     public string? PostDescription { get; set; }
+    public bool IsCleared { get; set; } = false;
 }
