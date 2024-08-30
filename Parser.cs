@@ -128,6 +128,9 @@ class Parser
     private static void Go(string[] message)
     {
         Console.WriteLine("In go");
+        
+
+
     }
 
     // keywords: take, pick; auxiliary: up; item name
@@ -321,7 +324,7 @@ class Parser
     // keywords: look; auxiliary: at, around; direction
     private static void Look(string[] message)
     {
-        if (Player.Current != null)
+        if (Player.Focus != null && Player.Focus.GetType() == typeof(Location))
         {
             if (Player.Current.IsCleared)
             {
@@ -334,6 +337,29 @@ class Parser
                 Console.WriteLine(Player.Current.Description + "\n");
                 Player.Current.DisplayItems();
             }
+        }
+
+        else if (Player.Focus != null && Player.Focus.GetType() == typeof(Obstacle))
+        {
+            Obstacle temp = (Obstacle)Player.Focus;
+
+            if (temp.IsCleared)
+            {
+                Console.WriteLine(temp.PostDescription + "\n");
+            }
+
+            else
+            {
+                Console.WriteLine(temp.Description + "\n");
+            }
+        }
+
+        else if (Player.Focus != null && Player.Focus.GetType() == typeof(Container))
+        {
+            Container temp = (Container)Player.Focus;
+
+            Console.WriteLine(temp.Description + "\n");
+            temp.DisplayItems();
         }
 
         else

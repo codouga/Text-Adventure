@@ -11,6 +11,27 @@ public class Container : PlayerInteraction
     [XmlArrayItem("Item")]
     public List<Item>? Contents { get; set; }
 
+    public void DisplayItems()
+    {
+        if (Contents != null && Contents.Count > 0)
+        {
+            Console.WriteLine("-- Available items --");
+            foreach (Item item in Contents)
+            {
+                if (item.RemainingUses > 0)
+                {
+                    Console.WriteLine($"-- {item.Name} : {item.RemainingUses} Uses Remaining");
+                }
+
+                else
+                {
+                    Console.WriteLine($"-- {item.Name}");
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+    
     /*
     public Item? Remove(Item item)
     {

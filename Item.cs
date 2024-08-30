@@ -12,8 +12,10 @@ public class Item : ItemInteraction
     public string? ConsumeMessage { get; set; }
     public bool Consumable { get; set; }
     
+/*
     public void DisplayItem()
     {
         Console.WriteLine($"Name: {Name}\nItem ID: {ItemID}\nDescription: {Description}\nMessage: {ConsumeMessage}\nConsumable: {Consumable}\nUses: {RemainingUses}\nCan burn: {CanBurn}\nCan cut: {CanCut}\nCan light up: {CanLightUp}\nCan smash: {CanSmash}\nCan shoot: {CanShoot}\nCan unlock: {CanUnlock}\n");
     }
+*/
 }
