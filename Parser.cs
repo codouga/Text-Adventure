@@ -18,6 +18,7 @@ class Parser
     private static ImmutableList<string> NO = ImmutableList.Create("no", "n");
 
     private const string TO = "to";
+    private const string BACK = "back";
     private const string USE = "use";
     private const string OPEN = "open";
     private const string ON = "on";
@@ -128,7 +129,30 @@ class Parser
     private static void Go(string[] message)
     {
         Console.WriteLine("In go");
+
+        if (Player.Current.RoomContainers.Contains(Player.Current.RoomContainers.Where(container => container.Name == message[message.Length - 1]).FirstOrDefault()))
+        {
+            Player.Focus = Player.Current.RoomContainers.Where(container => container.Name == message[message.Length - 1]).FirstOrDefault();
+            Look(message);
+        }
         
+        else if (Player.Current.RoomObstacles.Contains(Player.Current.RoomObstacles.Where(obstacle => obstacle.Name == message[message.Length -1]).FirstOrDefault()))
+        {
+            Player.Focus = Player.Current.RoomObstacles.Where(obstacle => obstacle.Name == message[message.Length - 1]).FirstOrDefault();
+            Look(message);
+        }
+/* Does not work cannot focus doors
+        else if (Player.Current.RoomWalls.Contains(Player.Current.RoomWalls.Where(wall => wall.MyDoor != null && wall.MyDoor.Name == message[message.Length - 1]).FirstOrDefault()))
+        {
+            Player.Focus = Player.Current.RoomWalls.Where(wall => wall.MyDoor != null && wall.MyDoor.Name == message[message.Length - 1]).FirstOrDefault().MyDoor;
+            Look(message);
+        }
+*/
+        else if (message[message.Length - 1] == BACK)
+        {
+            Player.Focus = Player.Current;
+            Look(message);
+        }
 
 
     }

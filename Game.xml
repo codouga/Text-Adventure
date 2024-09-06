@@ -65,7 +65,7 @@
                 <Door>
                     <PreviousID>0</PreviousID>
                     <NextID>-1</NextID>
-                    <Name>door 1</Name>
+                    <Name>door</Name>
                     <Description>A door with a old rusty lock keeps you trapped</Description>
                     <Reaction>You hear the click of the lock</Reaction>
                     <PostDescription>The door is now opened along with your path to freedom</PostDescription>
