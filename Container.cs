@@ -2,15 +2,16 @@ using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
 
 [XmlRoot("Container")]
-public class Container : PlayerInteraction
+public class Container : Obstacle
 {
+/*
     public string? Name { get; set; }
     public string? Description { get; set; }
 
     [XmlArray("Items")]
     [XmlArrayItem("Item")]
     public List<Item>? Contents { get; set; }
-
+*/
     public void DisplayItems()
     {
         if (Contents != null && Contents.Count > 0)

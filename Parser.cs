@@ -5,7 +5,7 @@ class Parser
     //Use a list of synonyms for each related word to get to the method call
     private static ImmutableList<string> GO = ImmutableList.Create("go", "move");
     private static ImmutableList<string> DROP = ImmutableList.Create("drop", "discard");
-    private static ImmutableList<string> TAKE = ImmutableList.Create("take", "pick", "grab");
+    private static ImmutableList<string> TAKE = ImmutableList.Create("take", "pick", "grab", "get");
     //private static ImmutableList<string> OPEN = ImmutableList.Create("open");
     private static ImmutableList<string> CLOSE = ImmutableList.Create("close", "shut");
     private static ImmutableList<string> THROWS = ImmutableList.Create("throw", "chuck", "yeet", "toss");
@@ -141,13 +141,13 @@ class Parser
             Player.Focus = Player.Current.RoomObstacles.Where(obstacle => obstacle.Name == message[message.Length - 1]).FirstOrDefault();
             Look(message);
         }
-/* Does not work cannot focus doors
+
         else if (Player.Current.RoomWalls.Contains(Player.Current.RoomWalls.Where(wall => wall.MyDoor != null && wall.MyDoor.Name == message[message.Length - 1]).FirstOrDefault()))
         {
             Player.Focus = Player.Current.RoomWalls.Where(wall => wall.MyDoor != null && wall.MyDoor.Name == message[message.Length - 1]).FirstOrDefault().MyDoor;
             Look(message);
         }
-*/
+
         else if (message[message.Length - 1] == BACK)
         {
             Player.Focus = Player.Current;
@@ -240,69 +240,126 @@ class Parser
     // keywords: use; auxiliary: on; item; target
     private static void Use(string[] message, Object? target = null)
     {
-        // figure out how to update uses
-        //Console.WriteLine("In use");
-
         try
         {
             Item? temp = Player.UseItem(message[1]);
+            bool getItems = false;
 
 
-            if (temp != null && Player.Current != null)
+            if (temp != null && Player.Focus != null)
             {
-                if (temp.CanBurn == true && Player.Current.CanBurn == true)
+                if (Player.Focus.GetType() == typeof(Obstacle) && Player.Focus.Contents != null)
                 {
-                    Player.Current.CanBurn = false;
-
-
-                    Player.Current.IsCleared = true;
-                    Console.WriteLine(Player.Current.Reaction + "\n"
-                        + Player.Current.PostDescription + "\n");
+                    getItems = true;
                 }
 
-                else if (temp.CanCut == true && Player.Current.CanCut == true)
+                if (temp.CanBurn == true && Player.Focus.CanBurn == true)
                 {
-                    Player.Current.CanCut = false;
+                    Player.Focus.CanBurn = false;
 
-                    Player.Current.IsCleared = true;
-                    Console.WriteLine(Player.Current.Reaction + "\n"
-                        + Player.Current.PostDescription + "\n");
+
+                    Player.Focus.IsCleared = true;
+                    Console.WriteLine(Player.Focus.Reaction + "\n"
+                        + Player.Focus.PostDescription + "\n");
+
+                    if (getItems)
+                    {
+                        foreach (Item i in Player.Focus.Contents)
+                        {
+                            Player.AddItem(i);
+                        }
+                        Player.Focus.Contents.Clear();
+                    }
                 }
 
-                else if (temp.CanLightUp == true && Player.Current.CanLightUp == true)
+                else if (temp.CanCut == true && Player.Focus.CanCut == true)
                 {
-                    Player.Current.CanLightUp = false;
+                    Player.Focus.CanCut = false;
 
-                    Player.Current.IsCleared = true;
-                    Console.WriteLine(Player.Current.Reaction + "\n"
-                        + Player.Current.PostDescription + "\n");
+                    Player.Focus.IsCleared = true;
+                    Console.WriteLine(Player.Focus.Reaction + "\n"
+                        + Player.Focus.PostDescription + "\n");
+
+                    if (getItems)
+                    {
+                        foreach (Item i in Player.Focus.Contents)
+                        {
+                            Player.AddItem(i);
+                        }
+                        Player.Focus.Contents.Clear();
+                    }
                 }
 
-                else if (temp.CanSmash == true && Player.Current.CanSmash == true)
+                else if (temp.CanLightUp == true && Player.Focus.CanLightUp == true)
                 {
-                    Player.Current.CanSmash = false;
+                    Player.Focus.CanLightUp = false;
 
-                    Player.Current.IsCleared = true;
-                    Console.WriteLine(Player.Current.Reaction + "\n"
-                        + Player.Current.PostDescription + "\n");
+                    Player.Focus.IsCleared = true;
+                    Console.WriteLine(Player.Focus.Reaction + "\n"
+                        + Player.Focus.PostDescription + "\n");
+
+                    if (getItems)
+                    {
+                        foreach (Item i in Player.Focus.Contents)
+                        {
+                            Player.AddItem(i);
+                        }
+                        Player.Focus.Contents.Clear();
+                    }
                 }
 
-                else if (temp.CanShoot == true && Player.Current.CanShoot == true)
+                else if (temp.CanSmash == true && Player.Focus.CanSmash == true)
                 {
-                    Player.Current.CanShoot = false;
+                    Player.Focus.CanSmash = false;
 
-                    Player.Current.IsCleared = true;
-                    Console.WriteLine(Player.Current.Reaction + "\n"
-                        + Player.Current.PostDescription + "\n");
+                    Player.Focus.IsCleared = true;
+                    Console.WriteLine(Player.Focus.Reaction + "\n"
+                        + Player.Focus.PostDescription + "\n");
+
+                    if (getItems)
+                    {
+                        foreach (Item i in Player.Focus.Contents)
+                        {
+                            Player.AddItem(i);
+                        }
+                        Player.Focus.Contents.Clear();
+                    }
                 }
 
-                else if (temp.CanUnlock == true && Player.Current.CanUnlock == true)
+                else if (temp.CanShoot == true && Player.Focus.CanShoot == true)
                 {
-                    Player.Current.CanUnlock = false;
+                    Player.Focus.CanShoot = false;
 
-                    Player.Current.IsCleared = true;
-                    Console.WriteLine(Player.Current.Reaction + "\n"
-                        + Player.Current.PostDescription + "\n");
+                    Player.Focus.IsCleared = true;
+                    Console.WriteLine(Player.Focus.Reaction + "\n"
+                        + Player.Focus.PostDescription + "\n");
+
+                    if (getItems)
+                    {
+                        foreach (Item i in Player.Focus.Contents)
+                        {
+                            Player.AddItem(i);
+                        }
+                        Player.Focus.Contents.Clear();
+                    }
+                }
+
+                else if (temp.CanUnlock == true && Player.Focus.CanUnlock == true)
+                {
+                    Player.Focus.CanUnlock = false;
+
+                    Player.Focus.IsCleared = true;
+                    Console.WriteLine(Player.Focus.Reaction + "\n"
+                        + Player.Focus.PostDescription + "\n");
+
+                    if (getItems)
+                    {
+                        foreach (Item i in Player.Focus.Contents)
+                        {
+                            Player.AddItem(i);
+                        }
+                        Player.Focus.Contents.Clear();
+                    }
                 }
             }
 
@@ -384,6 +441,21 @@ class Parser
 
             Console.WriteLine(temp.Description + "\n");
             temp.DisplayItems();
+        }
+
+        else if (Player.Focus != null && Player.Focus.GetType() == typeof(Door))
+        {
+            Door temp = (Door)Player.Focus;
+
+            if (temp.IsCleared)
+            {
+                Console.WriteLine(temp.PostDescription + "\n");
+            }
+
+            else
+            {
+                Console.WriteLine(temp.Description + "\n");
+            }
         }
 
         else

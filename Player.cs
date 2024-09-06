@@ -2,7 +2,7 @@ sealed class Player
 {
     private static List<Item> _inventory = [];
     private static Location? _current;
-    private static PlayerInteraction? _focus;
+    private static Obstacle? _focus;
     //private int _health = 5;
     //private int _sanity = 5;
 
@@ -46,7 +46,7 @@ sealed class Player
 
     public static void DisplayInventory()
     {
-        
+        // causes null reference exception
         foreach (Item item in _inventory)
         {
             if (item.RemainingUses > 0)
@@ -68,7 +68,7 @@ sealed class Player
         set => _current = value;
     }
 
-    public static PlayerInteraction? Focus
+    public static Obstacle? Focus
     {
         get => _focus;
         set => _focus = value;

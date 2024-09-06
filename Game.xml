@@ -58,6 +58,21 @@
                 <CanSmash>true</CanSmash>
                 <CanShoot>false</CanShoot>
                 <CanUnlock>false</CanUnlock>
+                <Items>
+                    <Item>
+                        <Name id="6">key</Name>
+                        <Description>an old rusty key</Description>
+                        <ConsumeMessage>The key crumbles in your hand as the lock clicks open</ConsumeMessage>
+                        <Consumable>true</Consumable>
+                        <RemainingUses>1</RemainingUses>
+                        <CanBurn>false</CanBurn>
+                        <CanCut>false</CanCut>
+                        <CanLightUp>false</CanLightUp>
+                        <CanSmash>false</CanSmash>
+                        <CanShoot>false</CanShoot>
+                        <CanUnlock>true</CanUnlock>
+                    </Item>
+                </Items>
             </Obstacle>
         </Obstacles>
         <Walls>
